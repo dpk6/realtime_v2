@@ -1,4 +1,4 @@
-package com.dpk.stream.realtime.v1.app.bwd;
+package com.dpk.stream.realtime.v1.app.dwd;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Package com.lzy.stream.realtime.v1.app.bwd.DwdBaseLog
+ * @Package com.dpk.stream.realtime.com.dpk.stream.realtime.com.dpk.stream.realtime.v2.app.bwd.DwdBaseLog
  * @Author zheyuan.liu
  * @Date 2025/4/11 10:35
  * @description: DwdBaseLog
@@ -48,7 +48,7 @@ public class DwdBaseLog {
 
         env.enableCheckpointing(5000L, CheckpointingMode.EXACTLY_ONCE);
 
-        KafkaSource<String> kafkaSource = FlinkSourceUtil.getKafkaSource("topic_log", "my-group");
+        KafkaSource<String> kafkaSource = FlinkSourceUtil.getKafkaSource(Constant.TOPIC_LOG, "dwd_log");
 
         DataStreamSource<String> kafkaStrDS = env
                 .fromSource(kafkaSource, WatermarkStrategy.noWatermarks(), "Kafka_Source");
@@ -60,7 +60,7 @@ public class DwdBaseLog {
         SingleOutputStreamOperator<JSONObject> jsonObjDS = kafkaStrDS.process(
                 new ProcessFunction<String, JSONObject>() {
                     @Override
-                    public void processElement(String jsonStr, ProcessFunction<String, JSONObject>.Context ctx, Collector<JSONObject> out) throws Exception {
+                    public void processElement(String jsonStr, ProcessFunction<String, JSONObject>.Context ctx, Collector<JSONObject> out) {
                         try {
                             JSONObject jsonObj = JSON.parseObject(jsonStr);
                             out.collect(jsonObj);
@@ -133,7 +133,7 @@ public class DwdBaseLog {
         SingleOutputStreamOperator<String> pageDS = fixedDS.process(
                 new ProcessFunction<JSONObject, String>() {
                     @Override
-                    public void processElement(JSONObject jsonObj, ProcessFunction<JSONObject, String>.Context ctx, Collector<String> out) throws Exception {
+                    public void processElement(JSONObject jsonObj, ProcessFunction<JSONObject, String>.Context ctx, Collector<String> out) {
                         //~~~错误日志~~~
                         JSONObject errJsonObj = jsonObj.getJSONObject("err");
                         if (errJsonObj != null) {
@@ -217,10 +217,7 @@ public class DwdBaseLog {
                 .get(ACTION)
                 .sinkTo(FlinkSinkUtil.getKafkaSink(Constant.TOPIC_DWD_TRAFFIC_ACTION));
 
-
-
         env.execute("dwd_log");
-
     }
 
 
