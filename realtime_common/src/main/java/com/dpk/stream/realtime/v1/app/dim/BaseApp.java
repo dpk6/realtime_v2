@@ -151,6 +151,8 @@ public class BaseApp {
         SingleOutputStreamOperator<Tuple2<JSONObject,TableProcessDim>> dimDS = connectDS
                 .process(new TableProcessFunction(mapStateDescriptor));
 
+
+
         // 打印处理结果
         dimDS.print();
 
