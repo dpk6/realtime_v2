@@ -43,6 +43,7 @@ public class DwsTrafficVcChArIsNewPageViewWindow {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
+
         env.setParallelism(1);
 
         env.enableCheckpointing(5000L, CheckpointingMode.EXACTLY_ONCE);
