@@ -43,6 +43,8 @@ public class DwsTrafficHomeDetailPageViewWindow {
 
         env.setParallelism(1);
 
+
+
         env.enableCheckpointing(5000L, CheckpointingMode.EXACTLY_ONCE);
 
         KafkaSource<String> kafkaSource = FlinkSourceUtil.getKafkaSource("dwd_traffic_page", "dws_traffic_home_detail_page_view_window");
