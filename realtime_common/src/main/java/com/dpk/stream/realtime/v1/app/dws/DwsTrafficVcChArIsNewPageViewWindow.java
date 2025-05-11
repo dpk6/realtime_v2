@@ -55,6 +55,7 @@ public class DwsTrafficVcChArIsNewPageViewWindow {
         DataStreamSource<String> kafkaStrDS = env
                 .fromSource(kafkaSource, WatermarkStrategy.noWatermarks(), "Kafka_Source");
 
+
 //        kafkaStrDS.print();
 
         SingleOutputStreamOperator<JSONObject> jsonObjDS = kafkaStrDS.map(JSON::parseObject);
