@@ -58,9 +58,12 @@ public class DwsTrafficVcChArIsNewPageViewWindow {
 
 //        kafkaStrDS.print();
 
+
         SingleOutputStreamOperator<JSONObject> jsonObjDS = kafkaStrDS.map(JSON::parseObject);
 
+
         KeyedStream<JSONObject, String> midKeyedDS = jsonObjDS.keyBy(jsonObj -> jsonObj.getJSONObject("common").getString("mid"));
+
 
         SingleOutputStreamOperator<TrafficVcChArIsNewPageViewBean> beanDS = midKeyedDS.map(
                 new RichMapFunction<JSONObject, TrafficVcChArIsNewPageViewBean>() {
