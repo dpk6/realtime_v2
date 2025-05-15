@@ -60,6 +60,7 @@ public class DwdLogApp {
                     }
                }));
 
+
         SingleOutputStreamOperator<JSONObject> logDeviceInfoDs = streamOperatorlog.map(new MapFunction<JSONObject, JSONObject>() {
             @Override
             public JSONObject map(JSONObject jsonObject) {
