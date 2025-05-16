@@ -39,6 +39,7 @@ public class DwdScoreApp {
 
         KafkaSource<String> kafkaSourceLog = FlinkSourceUtil.getKafkaSource("minutes_page_Log", "page_Log");
 
+
         SingleOutputStreamOperator<String> kafka_source_log = env.fromSource(kafkaSourceLog, WatermarkStrategy.noWatermarks(), "Kafka Source");
 
         SingleOutputStreamOperator<JSONObject> streamOperatorlog = kafka_source_log.map(JSON::parseObject);
