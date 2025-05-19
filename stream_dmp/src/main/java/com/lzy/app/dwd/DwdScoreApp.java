@@ -142,6 +142,7 @@ public class DwdScoreApp {
                         jsonObject.put("search_40_49", round(0.2 * searchRate));
                         jsonObject.put("search_50", round(0.1 * searchRate));
                         break;
+
                     case "性价比":
                         jsonObject.put("search_18_24", round(0.2 * searchRate));
                         jsonObject.put("search_25_29", round(0.4 * searchRate));
