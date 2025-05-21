@@ -37,6 +37,7 @@ public class DwdOrderInfo {
         DataStreamSource<String> kafka_source = env.fromSource(kafkaSourceBd, WatermarkStrategy.noWatermarks(), "Kafka Source");
 
         SingleOutputStreamOperator<JSONObject> streamOperator = kafka_source.map(JSON::parseObject).assignTimestampsAndWatermarks(WatermarkStrategy
+
                 .<JSONObject>forBoundedOutOfOrderness(Duration.ofSeconds(5))
                 .withTimestampAssigner(new SerializableTimestampAssigner<JSONObject>() {
                     @Override
