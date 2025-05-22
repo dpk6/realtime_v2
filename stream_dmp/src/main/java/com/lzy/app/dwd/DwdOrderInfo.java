@@ -100,6 +100,7 @@ public class DwdOrderInfo {
                         // 添加用户补充信息（来自 UserInfoSupDS）
                         merged.put("order_id", right.getString("order_id"));
                         merged.put("sku_id", right.getString("sku_id"));
+
                         merged.put("sku_name", right.getString("sku_name"));
 
                         out.collect(merged);
