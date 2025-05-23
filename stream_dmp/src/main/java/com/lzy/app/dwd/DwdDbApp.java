@@ -49,6 +49,7 @@ public class DwdDbApp {
 //        kafka_source.print();
 
         SingleOutputStreamOperator<JSONObject> UserInfoDS = operator
+
                 .filter(json -> json.getJSONObject("source").getString("table").equals("user_info"));
 
         SingleOutputStreamOperator<JSONObject> UserInfoSupDS = operator
