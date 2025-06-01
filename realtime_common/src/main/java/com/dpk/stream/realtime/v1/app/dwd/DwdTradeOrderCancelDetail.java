@@ -23,6 +23,7 @@ public class DwdTradeOrderCancelDetail {
 
         env.setParallelism(4);
 
+
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
 
         env.enableCheckpointing(5000L, CheckpointingMode.EXACTLY_ONCE);
